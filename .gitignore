@@ -1,0 +1,7 @@
+# Raw source footage — use hero_video.mp4 for web
+assets/hero_video.mov
+assets/*.MOV
+assets/*.mov
+
+# OS
+.DS_Store

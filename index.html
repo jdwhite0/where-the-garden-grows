@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Where the Garden Grows — Walking Paintbrush Studio</title>
+    <meta name="description" content="Art as mission, not decoration. A campaign by Walking Paintbrush Studio benefiting REGAL.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+
+    /* ─────────────────────────────────────────
+       FOUNDATION
+    ───────────────────────────────────────── */
+
+    :root {
+        --w:  #F7F6F2;   /* warm white — the beach sand */
+        --ss: #E8E6E1;   /* soft stone */
+        --g:  #2F5D3A;   /* garden stem green */
+        --r:  #C43A3A;   /* rose red */
+        --b:  #1C1C1C;   /* deep soil */
+        --d:  #0e0e0c;   /* near black — the deep */
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: var(--w);
+        color: var(--b);
+        overflow-x: hidden;
+    }
+
+    img { display: block; }
+
+
+    /* ─────────────────────────────────────────
+       NAVIGATION — minimal identity bar
+       No logo box. Campaign name + studio + donate.
+    ───────────────────────────────────────── */
+
+    #nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 28px 52px;
+        transition: background 0.6s ease, padding 0.4s ease;
+    }
+
+    #nav.scrolled {
+        background: rgba(14, 14, 12, 0.94);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 20px 52px;
+    }
+
+    .nav-identity {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    /* Campaign name — primary, readable */
+    .nav-campaign {
+        font-family: 'Libre Baskerville', serif;
+        font-size: 14px;
+        font-style: italic;
+        color: rgba(247, 246, 242, 0.88);
+        letter-spacing: 0.01em;
+        line-height: 1;
+    }
+
+    /* Studio name — secondary, smaller */
+    .nav-studio {
+        font-family: 'Inter', sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(247, 246, 242, 0.38);
+        font-weight: 400;
+    }
+
+    /* Donate — direct link, primary action */
+    .nav-give {
+        font-family: 'Inter', sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--w);
+        text-decoration: none;
+        border: 1px solid rgba(247, 246, 242, 0.25);
+        padding: 12px 28px;
+        transition: background 0.3s ease, border-color 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .nav-give:hover {
+        background: var(--r);
+        border-color: var(--r);
+    }
+
+
+    /* ─────────────────────────────────────────
+       HERO — the video is the world
+    ───────────────────────────────────────── */
+
+    .hero {
+        position: relative;
+        height: 100vh;
+        min-height: 640px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero video {
+        position: absolute;
+        inset: 0;
+        width: 100%; height: 100%;
+        object-fit: cover;
+    }
+
+    /* The overlay is just enough to read the text. Nothing else. */
+    .hero-veil {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to bottom,
+            rgba(14, 14, 12, 0.12) 0%,
+            rgba(14, 14, 12, 0.42) 55%,
+            rgba(14, 14, 12, 0.72) 100%
+        );
+    }
+
+    .hero-text {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: 0 36px;
+        max-width: 840px;
+    }
+
+    .hero-tag {
+        font-family: 'Inter', sans-serif;
+        font-size: 9.5px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(247, 246, 242, 0.4);
+        font-weight: 400;
+        margin-bottom: 28px;
+    }
+
+    .hero-title {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(56px, 9.5vw, 104px);
+        font-weight: 400;
+        color: var(--w);
+        line-height: 1.04;
+        letter-spacing: -0.01em;
+        margin-bottom: 30px;
+    }
+
+    .hero-title em { font-style: italic; }
+
+    .hero-anchor {
+        font-family: 'Libre Baskerville', serif;
+        font-style: italic;
+        font-size: clamp(14px, 1.6vw, 17px);
+        color: rgba(247, 246, 242, 0.58);
+        line-height: 1.78;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    /* Small scroll indicator — no animation, just a quiet presence */
+    .hero-down {
+        position: absolute;
+        bottom: 36px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .hero-down-line {
+        width: 1px;
+        height: 36px;
+        background: rgba(247, 246, 242, 0.22);
+    }
+
+    .hero-down-label {
+        font-family: 'Inter', sans-serif;
+        font-size: 8.5px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(247, 246, 242, 0.28);
+    }
+
+
+    /* ─────────────────────────────────────────
+       ORIGIN — the story of the painting
+       Image bleeds to the left viewport edge.
+       Text breathes on the right.
+    ───────────────────────────────────────── */
+
+    .origin {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 92vh;
+        background: var(--w);
+    }
+
+    .origin-visual {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .origin-visual img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        filter: sepia(0.06) saturate(1.06);
+    }
+
+    .origin-caption {
+        position: absolute;
+        bottom: 24px;
+        left: 28px;
+        font-family: 'Inter', sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(247, 246, 242, 0.5);
+    }
+
+    .origin-text {
+        padding: 140px 80px 140px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .section-tag {
+        font-family: 'Inter', sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--g);
+        font-weight: 500;
+        margin-bottom: 20px;
+    }
+
+    .section-tag-light { color: rgba(47, 93, 58, 0.7); }
+
+    h2.title {
+        font-family: 'Playfair Display', serif;
+        font-weight: 400;
+        line-height: 1.12;
+        margin-bottom: 32px;
+    }
+
+    h2.title em {
+        font-style: italic;
+        color: var(--g);
+    }
+
+    h2.title-light { color: var(--w); }
+    h2.title-light em { color: rgba(247, 246, 242, 0.75); }
+
+    .prose {
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+        line-height: 1.92;
+        color: rgba(28, 28, 28, 0.68);
+    }
+
+    .prose p + p { margin-top: 20px; }
+
+    .prose-light { color: rgba(247, 246, 242, 0.52); }
+
+    .pull {
+        border-left: 1px solid var(--g);
+        padding: 20px 0 20px 28px;
+        margin: 36px 0;
+    }
+
+    .pull p {
+        font-family: 'Libre Baskerville', serif;
+        font-style: italic;
+        font-size: 17px;
+        line-height: 1.65;
+        color: var(--b);
+    }
+
+    .pull-light { border-color: rgba(47, 93, 58, 0.4); }
+    .pull-light p { color: rgba(247, 246, 242, 0.72); }
+
+
+    /* ─────────────────────────────────────────
+       DETAIL MOMENTS
+       Full-width. Dark. The image is the world.
+       One at a time.
+    ───────────────────────────────────────── */
+
+    .detail {
+        position: relative;
+        background: var(--d);
+        line-height: 0;
+        overflow: hidden;
+    }
+
+    .detail img {
+        width: 100%;
+        height: 62vh;
+        object-fit: cover;
+        filter: brightness(0.82);
+    }
+
+    .detail-cap {
+        position: absolute;
+        bottom: 24px;
+        left: 52px;
+        font-family: 'Inter', sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(247, 246, 242, 0.32);
+    }
+
+
+    /* ─────────────────────────────────────────
+       SANCTUARY — the anchor statement
+       You are inside the painting.
+       One sentence. Full space. Dark.
+    ───────────────────────────────────────── */
+
+    .sanctuary {
+        position: relative;
+        background: var(--d);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    /* The painting — barely here. A whisper of texture. */
+    .sanctuary-ground {
+        position: absolute;
+        inset: 0;
+        background: url('assets/painting_beach_01.jpg') center/cover no-repeat;
+        opacity: 0.05;
+        filter: grayscale(1);
+    }
+
+    .sanctuary-body {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: 140px 52px;
+        max-width: 840px;
+    }
+
+    .sanctuary-tag {
+        font-family: 'Inter', sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(247, 246, 242, 0.2);
+        margin-bottom: 60px;
+        display: block;
+    }
+
+    /* The statement. This is the whole section. */
+    .sanctuary-statement {
+        font-family: 'Libre Baskerville', serif;
+        font-style: italic;
+        font-size: clamp(24px, 3.6vw, 44px);
+        line-height: 1.55;
+        color: rgba(247, 246, 242, 0.82);
+    }
+
+    .sanctuary-statement strong {
+        font-style: normal;
+        font-weight: 700;
+        color: rgba(247, 246, 242, 0.96);
+    }
+
+    /* The prose below — quiet, supporting, never competing */
+    .sanctuary-prose {
+        margin-top: 84px;
+        font-family: 'Inter', sans-serif;
+        font-size: 15px;
+        line-height: 1.96;
+        color: rgba(247, 246, 242, 0.35);
+        text-align: left;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .sanctuary-prose p + p { margin-top: 18px; }
+
+
+    /* ─────────────────────────────────────────
+       CAUSE — REGAL
+       The name is the environment.
+       Text left, painting bleeds right.
+    ───────────────────────────────────────── */
+
+    .cause {
+        display: grid;
+        grid-template-columns: 1fr 46vw;
+        min-height: 88vh;
+        background: var(--d);
+    }
+
+    .cause-text {
+        padding: 120px 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .cause-inner-text {
+        max-width: 500px;
+        margin-left: auto; /* presses text toward the image */
+    }
+
+    .cause-badge {
+        display: inline-block;
+        border: 1px solid rgba(47, 93, 58, 0.35);
+        padding: 9px 18px;
+        margin-bottom: 32px;
+    }
+
+    .cause-badge p {
+        font-family: 'Inter', sans-serif;
+        font-size: 8.5px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: rgba(47, 93, 58, 0.75);
+    }
+
+    /* REGAL — an inscription, not a heading */
+    .cause-name {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(60px, 8.5vw, 108px);
+        font-weight: 400;
+        color: rgba(247, 246, 242, 0.86);
+        line-height: 0.92;
+        letter-spacing: -0.02em;
+        margin-bottom: 36px;
+    }
+
+    .cause-visual {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cause-visual img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.62) saturate(0.8);
+    }
+
+
+    /* ─────────────────────────────────────────
+       LEDGER — every dollar traced
+    ───────────────────────────────────────── */
+
+    .ledger {
+        background: var(--w);
+        padding: 160px 0;
+    }
+
+    .ledger-wrap {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 52px;
+    }
+
+    .ledger-head {
+        text-align: center;
+        max-width: 560px;
+        margin: 0 auto 84px;
+    }
+
+    .ledger-sub {
+        font-family: 'Inter', sans-serif;
+        font-size: 15.5px;
+        line-height: 1.88;
+        color: rgba(28, 28, 28, 0.6);
+        margin-top: 24px;
+    }
+
+    .ledger-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;          /* the gap IS the separator — no borders */
+        background: var(--ss);
+    }
+
+    .ledger-cell {
+        background: var(--w);
+        padding: 52px 40px;
+    }
+
+    /* Subtle marker on Impact Fund — the most important bucket */
+    .ledger-cell.impact {
+        border-top: 1px solid rgba(47, 93, 58, 0.3);
+    }
+
+    .cell-num {
+        font-family: 'Inter', sans-serif;
+        font-size: 8.5px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--g);
+        margin-bottom: 18px;
+    }
+
+    .cell-name {
+        font-family: 'Libre Baskerville', serif;
+        font-size: 20px;
+        color: var(--b);
+        margin-bottom: 14px;
+    }
+
+    .cell-desc {
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        line-height: 1.75;
+        color: rgba(28, 28, 28, 0.5);
+    }
+
+    .ledger-note {
+        text-align: center;
+        margin-top: 52px;
+        font-family: 'Inter', sans-serif;
+        font-size: 13px;
+        line-height: 1.8;
+        color: rgba(28, 28, 28, 0.38);
+    }
+
+
+    /* ─────────────────────────────────────────
+       INVITATION — plant your seed
+       Green is the world. Nothing competes.
+    ───────────────────────────────────────── */
+
+    .invitation {
+        background: var(--g);
+        padding: 160px 52px;
+        text-align: center;
+    }
+
+    .invitation-wrap {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .inv-tag {
+        font-family: 'Inter', sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(247, 246, 242, 0.35);
+        margin-bottom: 26px;
+    }
+
+    .inv-title {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(50px, 7vw, 80px);
+        font-weight: 400;
+        color: var(--w);
+        line-height: 1.08;
+        margin-bottom: 22px;
+    }
+
+    .inv-title em { font-style: italic; }
+
+    .inv-sub {
+        font-family: 'Libre Baskerville', serif;
+        font-style: italic;
+        font-size: clamp(15px, 1.6vw, 18px);
+        color: rgba(247, 246, 242, 0.58);
+        line-height: 1.72;
+        margin-bottom: 56px;
+    }
+
+    .btn-give {
+        display: inline-block;
+        background: var(--r);
+        color: var(--w);
+        text-decoration: none;
+        font-family: 'Inter', sans-serif;
+        font-size: 10.5px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-weight: 500;
+        padding: 20px 60px;
+        transition: background 0.3s ease;
+    }
+
+    .btn-give:hover { background: #a82f2f; }
+
+    .inv-note {
+        margin-top: 28px;
+        font-family: 'Inter', sans-serif;
+        font-size: 11px;
+        color: rgba(247, 246, 242, 0.28);
+        letter-spacing: 0.04em;
+    }
+
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+
+    footer {
+        background: var(--d);
+        padding: 80px 52px;
+        text-align: center;
+    }
+
+    .footer-wrap {
+        max-width: 640px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-logo {
+        width: 240px;
+        height: auto;
+        margin-bottom: 28px;
+    }
+
+    .footer-rule {
+        width: 40px;
+        height: 1px;
+        background: rgba(247, 246, 242, 0.12);
+        margin: 0 auto 24px;
+    }
+
+    .footer-line {
+        font-family: 'Inter', sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        color: rgba(247, 246, 242, 0.22);
+        text-transform: uppercase;
+        line-height: 2.2;
+    }
+
+
+    /* ─────────────────────────────────────────
+       FADE-IN — opacity only, no motion.
+       Content appears. It doesn't fly.
+    ───────────────────────────────────────── */
+
+    .fade {
+        opacity: 0;
+        transition: opacity 1.5s ease;
+    }
+
+    .fade.on { opacity: 1; }
+
+    .fade.d1 { transition-delay: 0.2s; }
+    .fade.d2 { transition-delay: 0.4s; }
+    .fade.d3 { transition-delay: 0.6s; }
+
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+
+    @media (max-width: 960px) {
+        #nav { padding: 20px 28px; }
+        #nav.scrolled { padding: 14px 28px; }
+
+        .origin {
+            grid-template-columns: 1fr;
+            min-height: auto;
+        }
+
+        .origin-visual {
+            height: 55vw;
+            min-height: 320px;
+            position: relative;
+        }
+
+        .origin-visual img { position: absolute; }
+        .origin-text { padding: 72px 36px; }
+
+        .cause {
+            grid-template-columns: 1fr;
+            min-height: auto;
+        }
+
+        .cause-text { padding: 80px 36px; }
+        .cause-inner-text { margin-left: 0; }
+        .cause-visual { height: 55vw; min-height: 300px; position: relative; }
+        .cause-visual img { position: absolute; }
+
+        .ledger-wrap { padding: 0 28px; }
+        .ledger-grid { grid-template-columns: 1fr; }
+
+        .detail img { height: 52vw; }
+
+        footer { padding: 60px 28px; }
+        .footer-logo { width: 180px; }
+    }
+
+    @media (max-width: 600px) {
+        .nav-studio { display: none; }
+        .sanctuary-body { padding: 100px 28px; }
+        .invitation { padding: 120px 28px; }
+        .detail-cap { left: 28px; }
+    }
+
+    </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="nav">
+    <div class="nav-identity">
+        <span class="nav-campaign">Where the Garden Grows</span>
+        <span class="nav-studio">Walking Paintbrush Studio</span>
+    </div>
+    <a href="#" class="nav-give">Donate</a>
+</nav>
+
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+    <video autoplay muted loop playsinline>
+        <source src="assets/hero_video.mp4" type="video/mp4">
+        <source src="assets/hero_video.mov" type="video/quicktime">
+    </video>
+    <div class="hero-veil"></div>
+    <div class="hero-text">
+        <p class="hero-tag">Walking Paintbrush Studio &nbsp;·&nbsp; Campaign No. 1</p>
+        <h1 class="hero-title">Where the<br><em>Garden Grows</em></h1>
+        <p class="hero-anchor">"Growth does not depend on perfect conditions,<br>but on what is cultivated where contrast exists."</p>
+    </div>
+    <div class="hero-down">
+        <div class="hero-down-line"></div>
+        <span class="hero-down-label">Scroll</span>
+    </div>
+</section>
+
+
+<!-- ─── ORIGIN — the painting ─── -->
+<!-- The image bleeds to the viewport edge. No borders. A window. -->
+<section class="origin">
+    <div class="origin-visual">
+        <img src="assets/painting_beach_01.jpg" alt="Where the Garden Grows — original painting on the beach south of Tampa Bay">
+        <span class="origin-caption">A beach south of Tampa Bay &nbsp;·&nbsp; 2024</span>
+    </div>
+    <div class="origin-text">
+        <p class="section-tag fade">The Painting</p>
+        <h2 class="title fade d1" style="font-size: clamp(34px, 3.8vw, 50px);">Two people.<br>One canvas.<br><em>One shore.</em></h2>
+        <div class="prose fade d2">
+            <p>A beach south of Tampa Bay. Two people stood before a single canvas and painted simultaneously — not taking turns, but creating at the same moment, from the same surface, in the same breath.</p>
+            <p>One half emerged sunlit. Calm. The kind of morning that settles something in you. The other half came out moonlit — storm-driven, restless, carrying the weight of what isn't resolved.</p>
+            <p>Between the two halves, at the dividing line where calm meets chaos, they placed a garden. A heart-shaped plant. A small purple rose. They did not choose which half won. They planted something in the middle.</p>
+            <div class="pull">
+                <p>The contrast is preserved, not resolved. That is the painting's truth — and ours.</p>
+            </div>
+            <p>Real sand, shells, seaweed, and stone from that exact beach were sealed into the epoxy resin base. What that shore held, this painting holds. The beach did not stay behind. It came with them.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ─── DETAIL — what the beach left behind ─── -->
+<!-- Full-width. Dark. One image. You stop. You look. -->
+<div class="detail">
+    <img src="assets/detail_materials_close.jpg" alt="Sand, shells, seaweed, and stones — gathered from the beach and sealed in the painting forever" class="fade">
+    <span class="detail-cap">The beach, preserved</span>
+</div>
+
+
+<!-- ─── DETAIL — the duality ─── -->
+<div class="detail">
+    <img src="assets/detail_sunmoon_close.jpg" alt="The sun and moon — duality held in one sphere, at the center of the painting" class="fade">
+    <span class="detail-cap">Sun and moon, one sphere</span>
+</div>
+
+
+<!-- ─── SANCTUARY — the anchor statement ─── -->
+<!-- Darkness. One sentence. Enormous space. This is the whole point. -->
+<section class="sanctuary">
+    <div class="sanctuary-ground"></div>
+    <div class="sanctuary-body">
+        <span class="sanctuary-tag fade">The Garden</span>
+
+        <p class="sanctuary-statement fade d1">
+            "Growth does not depend on perfect conditions,
+            <br><strong>but on what is cultivated<br>where contrast exists."</strong>
+        </p>
+
+        <div class="sanctuary-prose fade d2">
+            <p>The garden at the center of this painting is not symbolic of something nice. It is the whole point. It lives at the exact place where the light meets the storm — where conditions are unstable, where most things wouldn't survive.</p>
+            <p>That is where the work happens. Not in controlled environments or tended greenhouses, but in the honest ones. In the contrast. Where growth is not guaranteed but remains possible — because something was planted, and tended, and refused to stop.</p>
+            <p>Walking Paintbrush Studio exists to create that space — in a canvas, and in a life. Every original artwork is tied to one cause. One painting. One purpose. Every dollar traced. Every outcome reported.</p>
+            <p>This painting belongs to the young people who are growing in conditions no one chose for them. They are the garden at the center.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ─── CAUSE — REGAL ─── -->
+<!-- The name is a declaration. 108px. An inscription. -->
+<!-- Text left, painting bleeds right. -->
+<section class="cause">
+    <div class="cause-text">
+        <div class="cause-inner-text">
+            <div class="cause-badge fade">
+                <p>Campaign Beneficiary</p>
+            </div>
+            <p class="section-tag section-tag-light fade">The Cause</p>
+            <h2 class="cause-name fade d1">REGAL</h2>
+            <div class="prose prose-light fade d2">
+                <p>Revolutionary Examples Guiding A Legacy.</p>
+                <p>REGAL works with at-risk youth — providing leadership development, mentorship, and community-centered programming for young people whose conditions are genuinely unstable. Not programs as a checkbox. A posture. The belief that every young person deserves someone who shows up and stays.</p>
+                <p>These are not statistics. They are the garden this campaign is planting for.</p>
+                <div class="pull pull-light">
+                    <p>The impact fund from this campaign goes directly to REGAL's programs — restricted, traced, and reported. You will know what happened to your gift.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cause-visual">
+        <img src="assets/painting_beach_03.jpg" alt="Where the Garden Grows — the painting on the beach">
+    </div>
+</section>
+
+
+<!-- ─── LEDGER — every dollar traced ─── -->
+<section class="ledger">
+    <div class="ledger-wrap">
+        <div class="ledger-head">
+            <p class="section-tag fade">How It Works</p>
+            <h2 class="title fade d1" style="font-size: clamp(36px, 5vw, 56px);">Every dollar<br><em>traced.</em></h2>
+            <p class="ledger-sub fade d2">Walking Paintbrush uses a three-bucket allocation model. Every artwork sold creates a ledger — declared, allocated, and reported. There is no guessing. You know exactly where your gift goes before you give it.</p>
+        </div>
+
+        <div class="ledger-grid">
+            <div class="ledger-cell fade">
+                <p class="cell-num">Bucket One</p>
+                <p class="cell-name">Artist Pay</p>
+                <p class="cell-desc">The artist is compensated. Art as mission does not mean art without value. The creator is seen and paid.</p>
+            </div>
+            <div class="ledger-cell fade d1">
+                <p class="cell-num">Bucket Two</p>
+                <p class="cell-name">Studio Operations</p>
+                <p class="cell-desc">The infrastructure that allows this work to continue — materials, production, platform, process.</p>
+            </div>
+            <div class="ledger-cell impact fade d2">
+                <p class="cell-num">Bucket Three</p>
+                <p class="cell-name">Impact Fund</p>
+                <p class="cell-desc">Cause-specific and restricted. Sent directly to REGAL for at-risk youth programming. Reported after deployment.</p>
+            </div>
+        </div>
+
+        <p class="ledger-note fade">
+            Donations through this campaign go directly to the Impact Fund — for REGAL.<br>
+            Every gift is a seed placed in the right soil.
+        </p>
+    </div>
+</section>
+
+
+<!-- ─── INVITATION — plant your seed ─── -->
+<!-- Green is the world. The words are enough. -->
+<section class="invitation" id="give">
+    <div class="invitation-wrap">
+        <p class="inv-tag fade">Walking Paintbrush Studio</p>
+        <h2 class="inv-title fade d1">Plant your<br><em>seed.</em></h2>
+        <p class="inv-sub fade d2">A garden grows because someone decided to tend it — not because the conditions were right, but because the decision was made anyway. You don't have to wait for perfect to do something that matters.</p>
+        <a href="https://givebutter.com" target="_blank" rel="noopener" class="btn-give fade d3">Give to Where the Garden Grows</a>
+        <p class="inv-note fade d3">Powered by Givebutter &nbsp;·&nbsp; Your gift directly funds REGAL at-risk youth programs.</p>
+    </div>
+</section>
+
+
+<!-- ─── FOOTER ─── -->
+<footer>
+    <div class="footer-wrap">
+        <img src="assets/logo_campaign.png" alt="Where the Garden Grows" class="footer-logo">
+        <div class="footer-rule"></div>
+        <p class="footer-line">Walking Paintbrush Studio &nbsp;·&nbsp; Campaign No. 1</p>
+        <p class="footer-line">Beneficiary: REGAL &nbsp;·&nbsp; Art as mission, not decoration</p>
+        <p class="footer-line" style="margin-top: 16px; opacity: 0.4;">© 2026 Walking Paintbrush Studio</p>
+    </div>
+</footer>
+
+
+<script>
+// Replace this with the real Givebutter campaign URL before launch
+const DONATION_URL = "REPLACE_WITH_REAL_GIVEBUTTER_URL";
+
+// Wire every donate button to the same destination
+document.querySelectorAll('.nav-give, .btn-give').forEach(el => {
+    el.href = DONATION_URL;
+    el.target = "_blank";
+    el.rel = "noopener";
+});
+
+// Nav — becomes opaque when you leave the hero
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// Fade in — opacity only. No motion. Content appears, it doesn't perform.
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.classList.add('on');
+            observer.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
