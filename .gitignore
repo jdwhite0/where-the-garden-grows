@@ -5,3 +5,4 @@ assets/*.mov
 
 # OS
 .DS_Store
+.vercel
