@@ -1,4 +1,24 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/about", "destination": "/", "statusCode": 301 },
+    { "source": "/about/", "destination": "/", "statusCode": 301 },
+    { "source": "/blog", "destination": "/", "statusCode": 301 },
+    { "source": "/blog/", "destination": "/", "statusCode": 301 },
+    { "source": "/contact", "destination": "/", "statusCode": 301 },
+    { "source": "/contact/", "destination": "/", "statusCode": 301 },
+    { "source": "/shop", "destination": "/", "statusCode": 301 },
+    { "source": "/shop/", "destination": "/", "statusCode": 301 },
+    { "source": "/home", "destination": "/", "statusCode": 301 },
+    { "source": "/home/", "destination": "/", "statusCode": 301 },
+    { "source": "/garden", "destination": "/", "statusCode": 301 },
+    { "source": "/garden/", "destination": "/", "statusCode": 301 },
+    { "source": "/privacy", "destination": "/", "statusCode": 301 },
+    { "source": "/privacy/", "destination": "/", "statusCode": 301 },
+    { "source": "/terms", "destination": "/", "statusCode": 301 },
+    { "source": "/terms/", "destination": "/", "statusCode": 301 },
+    { "source": "/donate", "destination": "/", "statusCode": 301 },
+    { "source": "/donate/", "destination": "/", "statusCode": 301 }
+  ]
 }
